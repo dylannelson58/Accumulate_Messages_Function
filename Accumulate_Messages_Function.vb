@@ -9,43 +9,41 @@ Option Explicit On
 Module Accumulate_Messages_Function
 
     Sub Main()
+        Dim userInput As String
 
-        Dim UserInput As Integer
-        Dim problem As Boolean = True
+        Console.WriteLine("What is your name?")
+        userInput = Console.ReadLine()
+        UserInputCheck(userInput)
 
-        Console.WriteLine($"Which Message would you like to recall?")
-        Console.WriteLine($"1, 2 , 3, 4, 5, or 6?")
+        Console.WriteLine("What is your age?")
+        userInput = Console.ReadLine()
+        UserInputCheck(userInput)
 
-        UserInput = CInt(Console.ReadLine)
+        Console.WriteLine("what is you favorite color?")
+        userInput = Console.ReadLine()
+        UserInputCheck(userInput)
 
-        If UserInput = CInt("1") Then
-            Console.WriteLine("Message 1:")
-        ElseIf UserInput = CInt("2") Then
-            Console.WriteLine("Message 2:")
-        ElseIf UserInput = CInt("3") Then
-            Console.WriteLine("Message 3:")
-        ElseIf UserInput = CInt("4") Then
-            Console.WriteLine("temp = ??")
-        ElseIf UserInput = CInt("5") Then
-            Console.WriteLine("Message 3:")
-        ElseIf UserInput = CInt("6") Then
-            Console.WriteLine("Message 6:")
-        Else
-            While UserInput > 6 And problem = True
-                Try
-                    UserInput = CInt(Console.ReadLine)
-                    problem = False
-                Catch ex As Exception
-                    Console.WriteLine($"Please enter a number between 1 and 6.")
-                    problem = True
 
-                End Try
-            End While
-        End If
-
-        Console.ReadLine()
-
+        MsgBox(UserMessages("", False))
+        Console.Read()
 
     End Sub
+    Function UserInputCheck(ByVal userInput As String) As String
+        If userInput = "" Then
+            Return UserMessages(($"{userInput}"), True)
+        Else
+            Return UserMessages(($"{userInput}"), False)
+        End If
+    End Function
+    Function UserMessages(ByVal newMessage As String, ByVal clear As Boolean) As String
+        Static messages As String
+        If Not clear Then
+            messages &= newMessage & vbNewLine
+        Else
+            messages = ""
+        End If
+        Return messages
+    End Function
+
 
 End Module
